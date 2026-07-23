@@ -27,7 +27,7 @@
     "@chat-adapter/slack": "^4.23.0",
     "@chat-adapter/state-memory": "^4.23.0",
     "@chat-adapter/telegram": "^4.23.0",
-    "@hono/node-server": "^1.13.0",
+    "@hono/node-server": "^2.0.10",
     "chat": "^4.23.0",
 
     "@openauthjs/openauth": "^0.4.3",
