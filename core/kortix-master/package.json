@@ -21,7 +21,7 @@
     "zod": "^4.3.6",
 
     "croner": "^8.1.2",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.3.1",
 
     "@chat-adapter/discord": "^4.23.0",
     "@chat-adapter/slack": "^4.23.0",
