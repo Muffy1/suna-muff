@@ -24,6 +24,7 @@ import { getProvider, type ProviderName } from '../providers';
 import { combinedAuth as authMiddleware } from '../../middleware/auth';
 import { resolveAccountId } from '../../shared/resolve-account';
 import { executeUpdate, getUpdateStatus, resetUpdateStatus } from '../../update';
+import { isValidSandboxVersion } from '../../update/version-validation';
 import type { AuthVariables } from '../../types';
 
 // ── Per-sandbox routes: /sandbox/:id/update/* ────────────────────────────────
@@ -47,6 +48,9 @@ sandboxIdUpdateRouter.post('/', async (c) => {
 
   if (!targetVersion || typeof targetVersion !== 'string') {
     return c.json({ success: false, error: 'Missing or invalid version' }, 400);
+  }
+  if (!isValidSandboxVersion(targetVersion)) {
+    return c.json({ success: false, error: 'Invalid version' }, 400);
   }
 
   const userId = c.get('userId');
@@ -163,6 +167,9 @@ sandboxUpdateRouter.post('/', async (c) => {
 
   if (!targetVersion || typeof targetVersion !== 'string') {
     return c.json({ success: false, error: 'Missing or invalid version' }, 400);
+  }
+  if (!isValidSandboxVersion(targetVersion)) {
+    return c.json({ success: false, error: 'Invalid version' }, 400);
   }
 
   let provider: LocalDockerProvider;

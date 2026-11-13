@@ -5,6 +5,7 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { config, SANDBOX_VERSION } from '../../config';
 import { generateSandboxKeyPair } from '../../shared/crypto';
+import { assertValidSandboxVersion } from '../../update/version-validation';
 import type {
   SandboxProvider,
   ProviderName,
@@ -350,6 +351,8 @@ export class LocalDockerProvider implements SandboxProvider {
    * Returns the new SandboxInfo on success, throws on failure.
    */
   async updateSandbox(targetVersion: string): Promise<SandboxInfo> {
+    assertValidSandboxVersion(targetVersion);
+
     if (_updateStatus.phase !== 'idle' && _updateStatus.phase !== 'complete' && _updateStatus.phase !== 'failed') {
       throw new Error(`Update already in progress (phase: ${_updateStatus.phase})`);
     }

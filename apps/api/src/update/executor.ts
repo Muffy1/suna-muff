@@ -21,6 +21,7 @@ import {
   stopAndStartContainer,
   verifyContainer,
 } from './steps';
+import { assertValidSandboxVersion } from './version-validation';
 
 function imageForVersion(version: string): string {
   const current = config.SANDBOX_IMAGE;
@@ -57,6 +58,8 @@ async function tryBackup(provider: string, externalId: string): Promise<void> {
 }
 
 export async function executeUpdate(sandboxId: string, targetVersion: string): Promise<void> {
+  assertValidSandboxVersion(targetVersion);
+
   const [row] = await db
     .select()
     .from(sandboxes)
